@@ -1,0 +1,462 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CSYE 7374: Applied Deep Learning and Generative Models in Healthcare</title>
+    <meta name="description" content="Graduate course on applied deep learning and generative models in healthcare. Northeastern University, Spring 2026.">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500;600&family=IBM+Plex+Sans:wght@400;500;600&display=swap" rel="stylesheet">
+    <style>
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            font-family: 'IBM Plex Sans', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+            line-height: 1.5;
+            color: #333;
+            background: #fff;
+            font-size: 15px;
+            -webkit-font-smoothing: antialiased;
+        }
+
+        .container {
+            max-width: 1000px;
+            margin: 0 auto;
+            padding: 24px 24px;
+        }
+
+        /* Header */
+        h1 {
+            font-family: 'IBM Plex Mono', monospace;
+            font-size: 1.75rem;
+            font-weight: 600;
+            color: #000;
+            margin-bottom: 6px;
+            letter-spacing: -0.02em;
+        }
+
+        .course-meta {
+            color: #666;
+            font-size: 0.9rem;
+            margin-bottom: 32px;
+        }
+
+        /* Sections */
+        h2 {
+            font-family: 'IBM Plex Mono', monospace;
+            font-size: 1.25rem;
+            font-weight: 600;
+            color: #000;
+            margin: 32px 0 16px 0;
+            border-bottom: 1px solid #e0e0e0;
+            padding-bottom: 6px;
+        }
+
+        h3 {
+            font-family: 'IBM Plex Mono', monospace;
+            font-size: 1rem;
+            font-weight: 600;
+            color: #000;
+            margin: 20px 0 10px 0;
+        }
+
+        p {
+            margin-bottom: 12px;
+            color: #333;
+        }
+
+        /* Info blocks */
+        .info-block {
+            margin-bottom: 16px;
+        }
+
+        .info-label {
+            font-weight: 600;
+            color: #000;
+            display: inline;
+        }
+
+        .info-content {
+            display: inline;
+            color: #333;
+        }
+
+        /* Links */
+        a {
+            color: #0066cc;
+            text-decoration: none;
+        }
+
+        a:hover {
+            text-decoration: underline;
+        }
+
+        /* Lists */
+        ul, ol {
+            margin: 12px 0 12px 24px;
+        }
+
+        li {
+            margin-bottom: 6px;
+            color: #333;
+        }
+
+        /* Session entries */
+        .session {
+            margin-bottom: 24px;
+            padding-bottom: 16px;
+            border-bottom: 1px solid #f0f0f0;
+        }
+
+        .session:last-child {
+            border-bottom: none;
+        }
+
+        .session-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: baseline;
+            margin-bottom: 8px;
+        }
+
+        .session-title {
+            font-size: 1rem;
+            font-weight: 500;
+            color: #000;
+        }
+
+        .session-date {
+            color: #999;
+            font-size: 0.85rem;
+            white-space: nowrap;
+            margin-left: 16px;
+        }
+
+        .session-topics {
+            color: #666;
+            font-size: 0.9rem;
+            margin-bottom: 8px;
+        }
+
+        .session-materials {
+            display: flex;
+            gap: 16px;
+            flex-wrap: wrap;
+            margin-top: 8px;
+        }
+
+        .material-link {
+            font-size: 0.85rem;
+            color: #0066cc;
+            text-decoration: none;
+            display: inline-flex;
+            align-items: center;
+            gap: 4px;
+        }
+
+        .material-link:hover {
+            text-decoration: underline;
+        }
+
+        .material-link::before {
+            content: '→';
+            font-size: 0.9rem;
+        }
+
+        /* Homework section */
+        .homework {
+            background: #f9f9f9;
+            padding: 20px;
+            margin: 24px 0;
+            border-left: 3px solid #0066cc;
+        }
+
+        .homework-title {
+            font-weight: 600;
+            color: #000;
+            margin-bottom: 8px;
+        }
+
+        .homework-meta {
+            font-size: 0.9rem;
+            color: #666;
+            margin-bottom: 12px;
+        }
+
+        /* Description section */
+        .description {
+            margin: 20px 0;
+            line-height: 1.6;
+        }
+
+        .phase {
+            margin-bottom: 16px;
+        }
+
+        .phase-title {
+            font-weight: 600;
+            color: #000;
+        }
+
+        /* Footer */
+        footer {
+            margin-top: 64px;
+            padding-top: 24px;
+            border-top: 1px solid #e0e0e0;
+            color: #999;
+            font-size: 0.85rem;
+            text-align: center;
+        }
+
+        /* Responsive */
+        @media (max-width: 640px) {
+            body {
+                font-size: 14px;
+            }
+
+            .container {
+                padding: 24px 16px;
+            }
+
+            h1 {
+                font-size: 1.5rem;
+            }
+
+            h2 {
+                font-size: 1.1rem;
+            }
+
+            .session-header {
+                flex-direction: column;
+                align-items: flex-start;
+            }
+
+            .session-date {
+                margin-left: 0;
+                margin-top: 4px;
+            }
+
+            .session-materials {
+                flex-direction: column;
+                gap: 8px;
+            }
+        }
+
+        /* Print styles */
+        @media print {
+            body {
+                font-size: 11pt;
+            }
+            
+            .container {
+                max-width: 100%;
+            }
+
+            a {
+                color: #000;
+                text-decoration: none;
+            }
+
+            .material-link::after {
+                content: " (" attr(href) ")";
+                font-size: 0.8em;
+                color: #666;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>CSYE 7374: Applied Deep Learning and Generative Models in Healthcare</h1>
+            <div class="course-meta">Northeastern University · Spring 2026 · Instructor: Matt Ebrahim (Mahmoud Ebrahimkhani)</div>
+        </header>
+
+        <main>
+            <section>
+                <h2>Course Information</h2>
+                
+                <h3>Instructor</h3>
+                <p>Matt Ebrahim (Mahmoud Ebrahimkhani)</p>
+                <p class="info-block">
+                    <span class="info-label">Email:</span> 
+                    <span class="info-content"><a href="mailto:m.ebrahimkhani@northeastern.edu">m.ebrahimkhani@northeastern.edu</a></span>
+                </p>
+                <p class="info-block">
+                    <span class="info-label">Office Hours:</span> 
+                    <span class="info-content">Fridays 11:00 – 12:00 PM ET (Zoom)</span>
+                </p>
+
+                <h3>Course Details</h3>
+                <p class="info-block">
+                    <span class="info-label">Meeting Times:</span> 
+                    <span class="info-content">Saturdays 12:30 – 3:00 PM ET</span>
+                </p>
+                <p class="info-block">
+                    <span class="info-label">Format:</span> 
+                    <span class="info-content">Virtual (Zoom)</span>
+                </p>
+            </section>
+
+            <section>
+                <h2>Course Description</h2>
+                <div class="description">
+                    <p>This course provides a comprehensive introduction to generative AI techniques and their applications in healthcare. Students will explore cutting-edge methods spanning from foundational deep learning architectures to state-of-the-art generative models, with hands-on implementation experience throughout.</p>
+                </div>
+            </section>
+
+            <section>
+                <h2>Course Schedule</h2>
+
+                <div class="session">
+                    <div class="session-header">
+                        <span class="session-title">Session 1: Introduction to Deep Learning and Generative AI in Healthcare</span>
+                        <span class="session-date">January 10, 2026</span>
+                    </div>
+                    <div class="session-topics">
+                        Course overview, deep learning impact in healthcare, medical diagnosis applications, protein structure prediction, drug discovery, biomedical data challenges
+                    </div>
+                    <div class="session-materials">
+                        <a href="01-260110/01-260110.pdf" class="material-link" target="_blank">Lecture Slides (PDF)</a>
+                    </div>
+                </div>
+
+                <div class="session">
+                    <div class="session-header">
+                        <span class="session-title">Session 2: Deep Learning Fundamentals</span>
+                        <span class="session-date">January 17, 2026</span>
+                    </div>
+                    <div class="session-topics">
+                        Neural network architectures, backpropagation, optimization algorithms, regularization techniques, training strategies
+                    </div>
+                    <div class="session-materials">
+                        <a href="02-260117/02-260117.pdf" class="material-link" target="_blank">Lecture Slides (PDF)</a>
+                    </div>
+                </div>
+
+                <div class="session">
+                    <div class="session-header">
+                        <span class="session-title">Session 3: Convolutional Neural Networks</span>
+                        <span class="session-date">January 24, 2026</span>
+                    </div>
+                    <div class="session-topics">
+                        CNN architectures, convolution operations, pooling layers, feature extraction, image classification fundamentals
+                    </div>
+                    <div class="session-materials">
+                        <a href="03-260124/03-260124.pdf" class="material-link" target="_blank">Lecture Slides (PDF)</a>
+                        <a href="https://github.com/matt-ebrahim/CSYE7374/blob/main/intro-neural-nets/into-image-classification.ipynb" class="material-link" target="_blank">Code: Image Classification</a>
+                    </div>
+                </div>
+
+                <div class="session">
+                    <div class="session-header">
+                        <span class="session-title">Session 4: Medical Image Classification</span>
+                        <span class="session-date">January 31, 2026</span>
+                    </div>
+                    <div class="session-topics">
+                        Transfer learning, pretrained models, medical imaging datasets, classification pipelines, model evaluation metrics
+                    </div>
+                    <div class="session-materials">
+                        <a href="04-260131/04-260131.pdf" class="material-link" target="_blank">Lecture Slides (PDF)</a>
+                        <a href="https://github.com/matt-ebrahim/CSYE7374/blob/main/intro-ensemble-modeling/medical_image_classification.ipynb" class="material-link" target="_blank">Code: Medical Image Classification</a>
+                    </div>
+                </div>
+
+                <div class="session">
+                    <div class="session-header">
+                        <span class="session-title">Session 5: Transfer Learning and Ensemble Learning</span>
+                        <span class="session-date">February 7, 2026</span>
+                    </div>
+                    <div class="session-topics">
+                        Advanced transfer learning techniques, ensemble methods (averaging, voting), model combination strategies, performance optimization
+                    </div>
+                    <div class="session-materials">
+                        <a href="04-260131/04-260131.pdf" class="material-link" target="_blank">Lecture Slides (PDF)</a>
+                        <a href="https://github.com/matt-ebrahim/CSYE7374/blob/main/intro-ensemble-modeling/medical_image_classification.ipynb" class="material-link" target="_blank">Code: Ensemble Methods</a>
+                    </div>
+                </div>
+
+                <div class="session">
+                    <div class="session-header">
+                        <span class="session-title">Session 6: Medical Image Segmentation</span>
+                        <span class="session-date">February 14, 2026</span>
+                    </div>
+                    <div class="session-topics">
+                        U-Net architecture, semantic segmentation, instance segmentation, evaluation metrics (Dice, IoU), segmentation pipelines
+                    </div>
+                    <div class="session-materials">
+                        <a href="06-260214/06-260214.pdf" class="material-link" target="_blank">Lecture Slides (PDF)</a>
+                        <a href="06-260214/medical_image_segmentation_pipeline.ipynb" class="material-link" target="_blank">Code: Segmentation Pipeline</a>
+                    </div>
+                </div>
+
+
+            </section>
+
+            <section>
+                <h2>Assignments</h2>
+
+                <div class="homework">
+                    <div class="homework-title">Homework 1: Transfer Learning and Ensemble Methods</div>
+                    <div class="homework-meta">
+                        Assigned: Week 5 (February 7) · Due: Week 8 · Worth: 15% of final grade
+                    </div>
+                    <p>Train pretrained models on BloodMNIST dataset, implement ensemble methods (averaging and voting), and compare performance across different architectures.</p>
+                    <div class="session-materials">
+                        <a href="hws/hw01/hw01_ensemble_learning.ipynb" class="material-link" target="_blank">Assignment Notebook</a>
+                    </div>
+                </div>
+
+
+            </section>
+
+            <section>
+                <h2>Resources</h2>
+                
+                <h3>Required Textbooks</h3>
+                <ul>
+                    <li>Bishop, C. M., & Bishop, H. (2024). <em>Deep Learning: Foundations and Concepts</em>. Springer. <a href="ebooks/Christopher M. Bishop, Hugh Bishop - Deep Learning_ Foundations and Concepts-Springer (2024).pdf" target="_blank">[PDF]</a></li>
+                    <li>Chollet, F. (2021). <em>Deep Learning with Python</em> (2nd ed.). Manning.</li>
+                    <li>Tunstall, L., von Werra, L., & Wolf, T. (2022). <em>Natural Language Processing with Transformers</em>. O'Reilly.</li>
+                </ul>
+
+                <h3>Development Tools</h3>
+                <ul>
+                    <li><a href="https://pytorch.org" target="_blank">PyTorch</a> – Primary deep learning framework</li>
+                    <li><a href="https://huggingface.co" target="_blank">Hugging Face</a> – Transformers and model hub</li>
+                    <li><a href="https://jupyter.org" target="_blank">Jupyter Notebook</a> – Interactive coding environment</li>
+                    <li><a href="https://colab.research.google.com" target="_blank">Google Colab</a> – Free GPU access</li>
+                </ul>
+
+                <h3>Additional Materials</h3>
+                <ul>
+                    <li><a href="syllabus/csye-7374-spring-26-syllabus.pdf" target="_blank">Course Syllabus (PDF)</a></li>
+                    <li><a href="https://github.com/matt-ebrahim/CSYE7374" target="_blank">Course GitHub Repository</a></li>
+                </ul>
+            </section>
+
+            <section>
+                <h2>Grading</h2>
+                <ul>
+                    <li><strong>Homework Assignments (60%):</strong> Four assignments, 15% each</li>
+                    <li><strong>Final Project (30%):</strong> Team project with proposal, implementation, and presentation</li>
+                    <li><strong>Participation (10%):</strong> Class attendance and engagement</li>
+                </ul>
+            </section>
+        </main>
+
+        <footer>
+            <p>© 2026 Northeastern University. All materials are for educational use only.</p>
+        </footer>
+    </div>
+</body>
+</html>
