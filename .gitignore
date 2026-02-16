@@ -1,0 +1,40 @@
+# Ignore all files by default
+*
+
+# But track these specific files that are linked in the website
+!.gitignore
+!index.html
+
+# Session 1
+!01-260110/
+!01-260110/01-260110.pdf
+
+# Session 2
+!02-260117/
+!02-260117/02-260117.pdf
+
+# Session 3
+!03-260124/
+!03-260124/03-260124.pdf
+
+# Session 4
+!04-260131/
+!04-260131/04-260131.pdf
+
+# Session 6
+!06-260214/
+!06-260214/06-260214.pdf
+!06-260214/medical_image_segmentation_pipeline.ipynb
+
+# Homework 1
+!hws/
+!hws/hw01/
+!hws/hw01/hw01_ensemble_learning.ipynb
+
+# Syllabus
+!syllabus/
+!syllabus/csye-7374-spring-26-syllabus.pdf
+
+# Textbook
+!ebooks/
+!ebooks/Christopher M. Bishop, Hugh Bishop - Deep Learning_ Foundations and Concepts-Springer (2024).pdf
